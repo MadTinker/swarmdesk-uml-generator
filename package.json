@@ -1,0 +1,32 @@
+{
+  "name": "@swarmdesk/uml-generator",
+  "version": "1.0.0",
+  "description": "Standalone UML generator for SwarmDesk 3D code visualization",
+  "main": "uml-generator.js",
+  "bin": {
+    "swarmdesk-uml": "./uml-generator.js"
+  },
+  "scripts": {
+    "generate": "node uml-generator.js",
+    "test": "node uml-generator.js . --output test-output.json"
+  },
+  "keywords": [
+    "uml",
+    "code-visualization",
+    "3d",
+    "swarmdesk",
+    "code-analysis"
+  ],
+  "author": "Mad Laboratory",
+  "license": "MIT",
+  "dependencies": {
+    "comment-parser": "^1.4.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/madness_interactive"
+  }
+}
