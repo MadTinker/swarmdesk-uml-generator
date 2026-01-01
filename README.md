@@ -1,6 +1,46 @@
-# 🔍⚡ UML Generator - TUI Edition
+# @madnessengineering/uml-generator
+
+[![npm version](https://badge.fury.io/js/%40madnessengineering%2Fuml-generator.svg)](https://www.npmjs.com/package/@madnessengineering/uml-generator)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node Version](https://img.shields.io/node/v/@madnessengineering/uml-generator)](https://nodejs.org)
 
 **Interactive Text User Interface for generating UML city visualizations from any codebase!**
+
+Standalone UML generator for SwarmDesk 3D code visualization - analyze any JavaScript/TypeScript codebase with TypeScript AST parsing, dependency graph analysis, and external library detection.
+
+## 📦 Installation
+
+### Global Installation (Recommended)
+```bash
+npm install -g @madnessengineering/uml-generator
+```
+
+Then run anywhere:
+```bash
+swarmdesk-uml
+# or
+swarmdesk-uml /path/to/project
+# or
+swarmdesk-uml https://github.com/user/repo
+```
+
+### Local Installation
+```bash
+npm install --save-dev @madnessengineering/uml-generator
+```
+
+Add to your package.json scripts:
+```json
+{
+  "scripts": {
+    "visualize": "swarmdesk-uml . --output uml-data.json"
+  }
+}
+```
+
+---
+
+# 🔍⚡ Features
 
 Now featuring a beautiful interactive TUI mode alongside the classic CLI for maximum flexibility.
 

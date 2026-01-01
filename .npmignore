@@ -1,0 +1,27 @@
+# Test outputs
+test-output.json
+test-enhanced.json
+test-enhanced2.json
+*.json.tmp
+
+# Development files
+.claude/
+.claude_temp/
+.cursorindexingignore
+.specstory/
+
+# Git
+.git/
+
+# Dependencies (users install their own)
+node_modules/
+
+# OS files
+.DS_Store
+*.log
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo

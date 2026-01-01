@@ -1,7 +1,7 @@
 {
-  "name": "@swarmdesk/uml-generator",
-  "version": "1.0.0",
-  "description": "Standalone UML generator for SwarmDesk 3D code visualization",
+  "name": "@madnessengineering/uml-generator",
+  "version": "0.1.0",
+  "description": "Standalone UML generator for SwarmDesk 3D code visualization - analyze any JavaScript/TypeScript codebase",
   "main": "uml-generator.js",
   "bin": {
     "swarmdesk-uml": "./uml-generator.js"
@@ -17,10 +17,35 @@
     "code-visualization",
     "3d",
     "swarmdesk",
-    "code-analysis"
+    "code-analysis",
+    "ast",
+    "typescript",
+    "javascript",
+    "react",
+    "architecture",
+    "dependency-graph",
+    "static-analysis",
+    "cli",
+    "tui"
   ],
-  "author": "Mad Laboratory",
+  "author": "Mad Laboratory <contact@madnessinteractive.cc>",
   "license": "MIT",
+  "homepage": "https://github.com/MadTinker/swarmdesk-uml-generator#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MadTinker/swarmdesk-uml-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MadTinker/swarmdesk-uml-generator/issues"
+  },
+  "files": [
+    "uml-generator.js",
+    "tui.js",
+    "README.md",
+    "UML-GENERATOR-README.md",
+    "EXAMPLES.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "boxen": "^5.1.2",
     "chalk": "^4.1.2",
@@ -34,9 +59,5 @@
   },
   "engines": {
     "node": ">=14.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/madness_interactive"
   }
 }
