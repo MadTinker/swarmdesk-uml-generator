@@ -1,7 +1,7 @@
 {
   "name": "@madnessengineering/uml-generator",
-  "version": "0.1.0",
-  "description": "Standalone UML generator for SwarmDesk 3D code visualization - analyze any JavaScript/TypeScript codebase",
+  "version": "0.2.0",
+  "description": "Standalone UML generator for SwarmDesk 3D code visualization with cloud upload - analyze any JavaScript/TypeScript codebase",
   "main": "uml-generator.js",
   "bin": {
     "swarmdesk-uml": "./uml-generator.js"
@@ -41,19 +41,24 @@
   "files": [
     "uml-generator.js",
     "tui.js",
+    "lib/",
     "README.md",
     "UML-GENERATOR-README.md",
     "EXAMPLES.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "dependencies": {
+    "axios": "^1.6.0",
     "boxen": "^5.1.2",
     "chalk": "^4.1.2",
     "cli-table3": "^0.6.3",
     "comment-parser": "^1.4.1",
+    "conf": "^11.0.2",
     "figlet": "^1.6.0",
     "gradient-string": "^2.0.2",
     "inquirer": "^8.2.5",
+    "open": "^9.1.0",
     "ora": "^5.4.1",
     "typescript": "^5.9.3"
   },

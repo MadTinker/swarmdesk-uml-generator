@@ -39,21 +39,77 @@ USAGE:
 
 OPTIONS:
   --output <file>         Output JSON file path
+  --upload                Upload to SwarmDesk account (requires login)
   --include <patterns>    Comma-separated directories to include
   --exclude <patterns>    Comma-separated patterns to exclude
   --help, -h              Show this help message
 
+COMMANDS:
+  login                   Login to SwarmDesk account
+  logout                  Logout from SwarmDesk
+  whoami                  Show current login status
+  upload <file.json>      Upload existing UML file to SwarmDesk
+
 EXAMPLES:
   node uml-generator.js                                  # Interactive TUI
   node uml-generator.js .                                # Analyze current dir
-  node uml-generator.js /path/to/project                 # Analyze specific dir
+  node uml-generator.js . --upload                       # Analyze and upload
   node uml-generator.js https://github.com/user/repo     # Analyze GitHub repo
   node uml-generator.js . --output my-uml.json           # Custom output
-  node uml-generator.js . --include "src,lib"            # Custom patterns
+  node uml-generator.js login                            # Login to account
+  node uml-generator.js upload my-project.json           # Upload existing file
 
 🧙‍♂️ From the Mad Laboratory
 `);
     process.exit(0);
+}
+
+// Check for new auth commands
+if (args[0] === 'login') {
+    const authManager = require('./lib/auth');
+    authManager.login().then(success => {
+        process.exit(success ? 0 : 1);
+    });
+    return;
+}
+
+if (args[0] === 'logout') {
+    const authManager = require('./lib/auth');
+    authManager.logout();
+    process.exit(0);
+}
+
+if (args[0] === 'whoami') {
+    const authManager = require('./lib/auth');
+    const chalk = require('chalk');
+
+    if (authManager.isAuthenticated()) {
+        const user = authManager.getCurrentUser();
+        console.log(chalk.green(`\n✅ Logged in as: ${chalk.bold(user.email)}`));
+        console.log(chalk.gray(`   Name: ${user.name}`));
+        console.log(chalk.gray(`   ID: ${user.sub}\n`));
+    } else {
+        console.log(chalk.yellow('\n⚠️  Not logged in\n'));
+        console.log(chalk.gray('   Run: swarmdesk-uml login\n'));
+    }
+    process.exit(0);
+}
+
+if (args[0] === 'upload') {
+    const uploadManager = require('./lib/upload');
+    const filePath = args[1];
+    const chalk = require('chalk');
+
+    if (!filePath) {
+        console.error(chalk.red('\n❌ File path required\n'));
+        console.log('Usage: swarmdesk-uml upload <file.json>\n');
+        process.exit(1);
+    }
+
+    uploadManager.uploadFile(filePath).then(success => {
+        process.exit(success ? 0 : 1);
+    });
+    return;
 }
 
 let targetPath = args[0] || '.';
@@ -574,7 +630,23 @@ function main() {
         console.log(`📊 Classes analyzed: ${umlData.classes.length}`);
         console.log(`📦 Packages: ${umlData.packages.length}`);
         console.log(`💾 Output file: ${outputFile}`);
-        console.log('\n🎮 Load this file in SwarmDesk to visualize in 3D!');
+
+        // Check for --upload flag
+        if (args.includes('--upload')) {
+            console.log('\n🚀 Uploading to SwarmDesk...\n');
+            const uploadManager = require('./lib/upload');
+            const success = await uploadManager.upload(umlData, projectName);
+
+            if (!success) {
+                const chalk = require('chalk');
+                console.log(chalk.gray(`📁 Saved locally: ${outputFile}`));
+                console.log(chalk.gray(`   Upload later with: swarmdesk-uml upload ${outputFile}\n`));
+            }
+        } else {
+            console.log('\n🎮 Load this file in SwarmDesk to visualize in 3D!');
+            const chalk = require('chalk');
+            console.log(chalk.gray('   Or upload to your account: swarmdesk-uml . --upload\n'));
+        }
 
     } catch (error) {
         console.error(`\n❌ Error: ${error.message}`);

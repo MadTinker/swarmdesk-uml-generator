@@ -40,6 +40,64 @@ Add to your package.json scripts:
 
 ---
 
+## ☁️ Cloud Integration
+
+Upload your UML data directly to your SwarmDesk account and visualize in the 3D dashboard!
+
+### Login to SwarmDesk
+
+```bash
+swarmdesk-uml login
+```
+
+This will:
+1. Open your browser to authorize the CLI
+2. Display a device code to enter
+3. Store your credentials securely in `~/.config/`
+
+### Upload While Analyzing
+
+```bash
+# Analyze and upload in one command
+swarmdesk-uml . --upload
+
+# Analyze GitHub repo and upload
+swarmdesk-uml https://github.com/facebook/react --upload
+```
+
+### Upload Existing Files
+
+```bash
+swarmdesk-uml upload my-project-uml.json
+```
+
+### Check Login Status
+
+```bash
+swarmdesk-uml whoami
+```
+
+### Logout
+
+```bash
+swarmdesk-uml logout
+```
+
+### View in Dashboard
+
+After upload, visit https://madnessinteractive.cc/dashboard
+
+Navigate to: **Projects → [Your Project] → 3D Code Lab**
+
+### Security
+
+- Tokens stored securely in user's home directory with encryption
+- Auto-refresh prevents session expiration
+- HTTPS-only API communication
+- OAuth Device Flow for secure CLI authentication
+
+---
+
 # 🔍⚡ Features
 
 Now featuring a beautiful interactive TUI mode alongside the classic CLI for maximum flexibility.

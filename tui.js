@@ -389,11 +389,44 @@ async function saveOutput(umlData, outputFile) {
         fs.writeFileSync(outputFile, JSON.stringify(umlData, null, 2));
         saveSpinner.succeed(chalk.green(`Saved to ${outputFile}`));
 
+        // Ask about uploading
+        const authManager = require('./lib/auth');
+
+        if (authManager.isAuthenticated()) {
+            const user = authManager.getCurrentUser();
+            const { shouldUpload } = await inquirer.prompt([{
+                type: 'confirm',
+                name: 'shouldUpload',
+                message: `Upload to SwarmDesk account (${user.email})?`,
+                default: true
+            }]);
+
+            if (shouldUpload) {
+                const uploadManager = require('./lib/upload');
+                await uploadManager.upload(umlData, umlData.project.name);
+            }
+        } else {
+            const { wantToLogin } = await inquirer.prompt([{
+                type: 'confirm',
+                name: 'wantToLogin',
+                message: 'Upload to SwarmDesk? (requires login)',
+                default: false
+            }]);
+
+            if (wantToLogin) {
+                const loginSuccess = await authManager.login();
+                if (loginSuccess) {
+                    const uploadManager = require('./lib/upload');
+                    await uploadManager.upload(umlData, umlData.project.name);
+                }
+            }
+        }
+
         console.log('\n' + boxen(
             chalk.white.bold('🎮 Next Steps:\n\n') +
-            chalk.gray('1. ') + chalk.white('Load in SwarmDesk 3D viewer\n') +
-            chalk.gray('2. ') + chalk.white('Press ') + chalk.cyan('I') + chalk.white(' to cycle data sources\n') +
-            chalk.gray('3. ') + chalk.white('Explore your code in 3D!'),
+            chalk.gray('1. ') + chalk.white('View in dashboard: ') + chalk.cyan('https://madnessinteractive.cc/dashboard\n') +
+            chalk.gray('2. ') + chalk.white('Or load ') + chalk.cyan(outputFile) + chalk.white(' in SwarmDesk\n') +
+            chalk.gray('3. ') + chalk.white('Press ') + chalk.cyan('I') + chalk.white(' to cycle data sources'),
             {
                 padding: 1,
                 margin: 1,
