@@ -193,6 +193,121 @@ node uml-generator.js [path|url] [options]
 
 See [UML-GENERATOR-README.md](./UML-GENERATOR-README.md) for full CLI documentation.
 
+## 📚 Working with Monorepos & Custom Directory Structures
+
+### The Problem: Zero Files Detected
+
+If you see output like this:
+```
+📄 Found 0 source files
+✨ UML Generation Complete!
+📊 Classes analyzed: 0
+```
+
+Your project likely uses a **non-standard directory structure** that doesn't match the default search patterns.
+
+### Default Search Patterns
+
+The generator looks for `.js`, `.jsx`, `.ts`, `.tsx`, `.mjs` files in these directories:
+- ✅ `src/`, `lib/`, `components/`, `pages/`, `utils/`, `hooks/`, `services/`
+- ❌ `client/`, `server/`, `packages/`, `apps/`, `modules/` (not included by default)
+
+**Excluded by default:** `node_modules/`, `dist/`, `build/`, `.git/`, `coverage/`, `test/`, `__tests__/`
+
+### The Solution: `--include` Flag
+
+Use `--include` to specify your project's actual directory structure:
+
+```bash
+node uml-generator.js /path/to/project \
+  --output output.json \
+  --include "client,server,shared,servers,packages"
+```
+
+### Real-World Examples
+
+#### Monorepo with Client/Server (e.g., Abzena)
+```bash
+# Structure:
+# Abzena/
+# ├── client/src/     (React frontend - 170 files)
+# ├── server/         (Express backend - 6 files)
+# ├── shared/         (Utilities - 4 files)
+# ├── servers/        (MCP servers - 7 files)
+# └── packages/       (npm packages - 1 file)
+
+node uml-generator.js /Users/d.edens/lab/Faros/Abzena \
+  --output public/data/Abzena-uml.json \
+  --include "client,server,shared,servers,packages"
+```
+
+**Result:** ✅ 187 TypeScript files analyzed instead of 0!
+
+#### Nx/Turborepo Monorepo
+```bash
+# Structure: apps/, libs/, packages/
+node uml-generator.js . \
+  --include "apps,libs,packages"
+```
+
+#### Lerna Monorepo
+```bash
+# Structure: packages/package-a, packages/package-b
+node uml-generator.js . \
+  --include "packages"
+```
+
+#### Python Project
+```bash
+# Most Python projects won't work - this generator only supports JS/TS
+# But if you have TypeScript tooling:
+node uml-generator.js . \
+  --include "src,scripts,tools"
+```
+
+#### Scan Everything (Nuclear Option)
+```bash
+# Empty include = scan all files (except excludes)
+node uml-generator.js . \
+  --include "" \
+  --output everything.json
+```
+
+### Custom Exclude Patterns
+
+Override default excludes:
+```bash
+node uml-generator.js . \
+  --include "src,lib" \
+  --exclude "node_modules,dist,build,.git,coverage,test,__tests__,tmp,cache"
+```
+
+### Automating in package.json
+
+Add to your `package.json` for easy reuse:
+```json
+{
+  "scripts": {
+    "visualize": "node path/to/uml-generator.js . --output uml-data.json",
+    "visualize:custom": "node path/to/uml-generator.js . --output uml-data.json --include \"client,server,shared\""
+  }
+}
+```
+
+Then run: `npm run visualize:custom`
+
+### Troubleshooting
+
+**Still getting 0 files?**
+1. Check your directory names match the `--include` patterns
+2. Ensure you're using supported file extensions (`.js`, `.jsx`, `.ts`, `.tsx`, `.mjs`)
+3. Verify files aren't in excluded directories (`node_modules/`, `dist/`, etc.)
+4. Try `--include ""` to see what files would be detected without restrictions
+
+**Getting too many files?**
+1. Use more specific include patterns: `--include "src/components,src/services"`
+2. Add more exclude patterns: `--exclude "node_modules,test,*.spec.ts"`
+
 ## 🎨 TUI Features Showcase
 
 **Smart Project Discovery:**
