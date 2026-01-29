@@ -1,39 +1,43 @@
-# @madnessengineering/uml-generator
+# 🔮 Cartogomancy
 
-[![npm version](https://badge.fury.io/js/%40madnessengineering%2Fuml-generator.svg)](https://www.npmjs.com/package/@madnessengineering/uml-generator)
+## *The Mystical Art of Map Divination*
+
+[![npm version](https://badge.fury.io/js/%40madnessengineering%2Fcartogomancy.svg)](https://www.npmjs.com/package/@madnessengineering/cartogomancy)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node Version](https://img.shields.io/node/v/@madnessengineering/uml-generator)](https://nodejs.org)
+[![Node Version](https://img.shields.io/node/v/@madnessengineering/cartogomancy)](https://nodejs.org)
 
-**Interactive Text User Interface for generating UML city visualizations from any codebase!**
+**Peer into the ethereal structure of any codebase and divine its true architecture!**
 
-Standalone UML generator for SwarmDesk 3D code visualization - analyze any JavaScript/TypeScript codebase with TypeScript AST parsing, dependency graph analysis, and external library detection.
+**Cartogomancy** (from *cartography* + *cartomancy*) is the mystical practice of revealing hidden code structures through arcane analysis. This CLI tool conjures UML visualizations for SwarmDesk 3D code cities - analyzing any JavaScript/TypeScript codebase with TypeScript AST parsing, dependency graph analysis, and external library detection.
+
+> *"As above in the source tree, so below in the build artifacts"* - Ancient Developer Proverb
 
 ## 📦 Installation
 
 ### Global Installation (Recommended)
 ```bash
-npm install -g @madnessengineering/uml-generator
+npm install -g @madnessengineering/cartogomancy
 ```
 
-Then run anywhere:
+Then invoke the divination anywhere:
 ```bash
-swarmdesk-uml
+cartogomancy
 # or
-swarmdesk-uml /path/to/project
+cartogomancy /path/to/project
 # or
-swarmdesk-uml https://github.com/user/repo
+cartogomancy https://github.com/MadnessEngineering/cartogomancy.git
 ```
 
 ### Local Installation
 ```bash
-npm install --save-dev @madnessengineering/uml-generator
+npm install --save-dev @madnessengineering/cartogomancy
 ```
 
 Add to your package.json scripts:
 ```json
 {
   "scripts": {
-    "visualize": "swarmdesk-uml . --output uml-data.json"
+    "visualize": "cartogomancy . --output uml-data.json"
   }
 }
 ```
@@ -47,7 +51,7 @@ Upload your UML data directly to your SwarmDesk account and visualize in the 3D 
 ### Login to SwarmDesk
 
 ```bash
-swarmdesk-uml login
+cartogomancy login
 ```
 
 This will:
@@ -59,28 +63,28 @@ This will:
 
 ```bash
 # Analyze and upload in one command
-swarmdesk-uml . --upload
+cartogomancy . --upload
 
 # Analyze GitHub repo and upload
-swarmdesk-uml https://github.com/facebook/react --upload
+cartogomancy https://github.com/facebook/react --upload
 ```
 
 ### Upload Existing Files
 
 ```bash
-swarmdesk-uml upload my-project-uml.json
+cartogomancy upload my-project-uml.json
 ```
 
 ### Check Login Status
 
 ```bash
-swarmdesk-uml whoami
+cartogomancy whoami
 ```
 
 ### Logout
 
 ```bash
-swarmdesk-uml logout
+cartogomancy logout
 ```
 
 ### View in Dashboard
@@ -118,9 +122,9 @@ Launch an interactive terminal UI with menus, progress bars, and live previews:
 
 Simply run without arguments to launch the TUI:
 ```bash
-cd uml-generator-cli
+cd cartogomancy
 npm install
-node uml-generator.js
+node cartogomancy.js
 # or
 npm start
 ```
@@ -139,22 +143,22 @@ You'll see:
 For scripts and automation, use with arguments:
 ```bash
 # Analyze local directory
-node uml-generator.js /path/to/project
+node cartogomancy.js /path/to/project
 
 # Analyze GitHub repo
-node uml-generator.js https://github.com/facebook/react
+node cartogomancy.js https://github.com/facebook/react
 
 # Custom output with options
-node uml-generator.js . --output my-project.json --include "src,lib"
+node cartogomancy.js . --output my-project.json --include "src,lib"
 
 # Show help
-node uml-generator.js --help
+node cartogomancy.js --help
 ```
 
 ## 📦 Installation
 
 ```bash
-cd uml-generator-cli
+cd cartogomancy
 npm install
 ```
 
@@ -173,7 +177,7 @@ Dependencies include:
 **Best for:** Interactive exploration, learning, one-off analyses
 
 ```bash
-node uml-generator.js
+node cartogomancy.js
 ```
 
 Features:
@@ -188,7 +192,7 @@ Features:
 **Best for:** Automation, CI/CD, scripting
 
 ```bash
-node uml-generator.js [path|url] [options]
+node cartogomancy.js [path|url] [options]
 ```
 
 See [UML-GENERATOR-README.md](./UML-GENERATOR-README.md) for full CLI documentation.
@@ -219,7 +223,7 @@ The generator looks for `.js`, `.jsx`, `.ts`, `.tsx`, `.mjs` files in these dire
 Use `--include` to specify your project's actual directory structure:
 
 ```bash
-node uml-generator.js /path/to/project \
+node cartogomancy.js /path/to/project \
   --output output.json \
   --include "client,server,shared,servers,packages"
 ```
@@ -236,7 +240,7 @@ node uml-generator.js /path/to/project \
 # ├── servers/        (MCP servers - 7 files)
 # └── packages/       (npm packages - 1 file)
 
-node uml-generator.js /Users/d.edens/lab/Faros/Abzena \
+node cartogomancy.js /Users/d.edens/lab/Faros/Abzena \
   --output public/data/Abzena-uml.json \
   --include "client,server,shared,servers,packages"
 ```
@@ -246,14 +250,14 @@ node uml-generator.js /Users/d.edens/lab/Faros/Abzena \
 #### Nx/Turborepo Monorepo
 ```bash
 # Structure: apps/, libs/, packages/
-node uml-generator.js . \
+node cartogomancy.js . \
   --include "apps,libs,packages"
 ```
 
 #### Lerna Monorepo
 ```bash
 # Structure: packages/package-a, packages/package-b
-node uml-generator.js . \
+node cartogomancy.js . \
   --include "packages"
 ```
 
@@ -261,14 +265,14 @@ node uml-generator.js . \
 ```bash
 # Most Python projects won't work - this generator only supports JS/TS
 # But if you have TypeScript tooling:
-node uml-generator.js . \
+node cartogomancy.js . \
   --include "src,scripts,tools"
 ```
 
 #### Scan Everything (Nuclear Option)
 ```bash
 # Empty include = scan all files (except excludes)
-node uml-generator.js . \
+node cartogomancy.js . \
   --include "" \
   --output everything.json
 ```
@@ -277,7 +281,7 @@ node uml-generator.js . \
 
 Override default excludes:
 ```bash
-node uml-generator.js . \
+node cartogomancy.js . \
   --include "src,lib" \
   --exclude "node_modules,dist,build,.git,coverage,test,__tests__,tmp,cache"
 ```
@@ -288,8 +292,8 @@ Add to your `package.json` for easy reuse:
 ```json
 {
   "scripts": {
-    "visualize": "node path/to/uml-generator.js . --output uml-data.json",
-    "visualize:custom": "node path/to/uml-generator.js . --output uml-data.json --include \"client,server,shared\""
+    "visualize": "node path/to/cartogomancy.js . --output uml-data.json",
+    "visualize:custom": "node path/to/cartogomancy.js . --output uml-data.json --include \"client,server,shared\""
   }
 }
 ```
@@ -375,9 +379,31 @@ Then run: `npm run visualize:custom`
 - **React-aware:** Special handling for components
 - **Multi-project:** Analyze multiple projects in one session (TUI)
 
+## 📜 History & Name Origin
+
+**Cartogomancy** combines two mystical arts:
+- **Cartography** - The science of map-making and spatial representation
+- **Cartomancy** - The practice of divination using cards or maps
+
+Together, they form the mystical practice of revealing hidden structures through map divination. This CLI tool peers into the ethereal architecture of codebases, revealing their true form as 3D city visualizations.
+
+### Migration from uml-generator
+
+This project was formerly known as `@madnessengineering/uml-generator` (command: `swarmdesk-uml`). As of January 2026, it has been renamed to **Cartogomancy** to better reflect its mystical nature and to give it a standalone identity separate from SwarmDesk.
+
+**If you're upgrading from uml-generator:**
+- Update package name: `npm install -g @madnessengineering/cartogomancy`
+- Update command: `swarmdesk-uml` → `cartogomancy`
+- Update scripts in package.json to reference `cartogomancy.js` instead of `uml-generator.js`
+- The tool functionality remains identical - only the name has changed!
+
+---
+
 ## 🧙‍♂️ From the Mad Laboratory
 
-This TUI edition brings the power of SwarmDesk code visualization to your terminal. Experience the thrill of watching your codebase transform into data, then load it in SwarmDesk for the full 3D city experience!
+This arcane tool brings the power of SwarmDesk code visualization to your terminal. Experience the thrill of watching your codebase transform into mystical data structures, then load them in SwarmDesk for the full 3D city experience!
+
+The Mad Engineers at [Madness Interactive](https://madnessinteractive.cc) have been brewing this concoction in our digital laboratory, where code meets creativity and structure becomes art.
 
 ---
 
